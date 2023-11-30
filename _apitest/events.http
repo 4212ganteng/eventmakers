@@ -1,0 +1,44 @@
+### List Events
+
+GET https://eventmakers-api.vercel.app/api/events
+
+
+
+### Detail Event
+
+GET https://eventmakers-api.vercel.app/api/events/:id
+
+
+### Detail Event by user
+
+GET https://eventmakers-api.vercel.app/api/events?userid=:userid
+
+
+### List Events
+
+POST https://eventmakers-api.vercel.app/api/events
+
+{
+   
+   "name":"fira",
+    "description":"firasat ku kita berjodoh",
+    "image":"image.png",
+    "location":"jakarta",
+    "date":"25-05-1998",
+    "authorId":"eb2478f4-1c8d-465d-b085-031d31e860bd" 
+
+}
+
+
+### List Events
+
+POST https://eventmakers-api.vercel.app/api/join-events
+
+{
+   
+ "name":"dwi",
+ "email":"dwiUlar@mail.com",
+ "phone":"0851242774",
+ "eventId":"b8307c2f-aae9-45fc-8e96-e77c599ba02c"
+
+}
