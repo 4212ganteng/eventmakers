@@ -1,35 +1,22 @@
 "use client";
 
 import { Button, Input } from "@nextui-org/react";
-import React, { useMemo, useState } from "react";
-
-import { PatternMail } from "@/components/utils/PatternMail";
-import { EyeSlashFilledIcon } from "../component/EyeSlashFilledIcon";
+import { useVisiblepassword } from "@/components/customHooks/useVisiblepassword";
 import { EyeFilledIcon } from "../component/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "../component/EyeSlashFilledIcon";
 import SpinerButton from "../component/SpinerButton";
+import { useRegister } from "../hooks/useRegister";
 
 const Register = () => {
-  const [register, setRegister] = useState({
-    email: "",
-    password: "",
-  });
-
-  // visible password
-  const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => setIsVisible(!isVisible);
-
-  //   validate email
-  const validateEmail = (value) => value.match(PatternMail);
-
-  const isInvalid = useMemo(() => {
-    if (register.email === "") return false;
-    return validateEmail(register.email) ? false : true;
-  }, [register.email]);
+  const { isVisible, toggleVisibility } = useVisiblepassword();
+  const { register, handleChange, HandleRegister, isInvalid, loading } =
+    useRegister();
 
   return (
     <main className="space-y-3">
       <Input
         isRequired
+        name="email"
         type="email"
         label="Email"
         isClearable
@@ -37,7 +24,7 @@ const Register = () => {
         isInvalid={isInvalid}
         color={isInvalid ? "danger" : "success"}
         errorMessage={isInvalid && "Please enter a valid email"}
-        onValueChange={(value) => setRegister({ ...register, email: value })}
+        onChange={handleChange}
       />
 
       <Input
@@ -45,6 +32,8 @@ const Register = () => {
         isRequired
         variant="bordered"
         placeholder="Enter your password"
+        onChange={handleChange}
+        name="password"
         endContent={
           <button
             className="focus:outline-none"
@@ -62,7 +51,11 @@ const Register = () => {
         className="max-w-xs"
       />
 
-      <Button isLoading={false} spinner={<SpinerButton />}>
+      <Button
+        isLoading={loading}
+        spinner={<SpinerButton />}
+        onClick={HandleRegister}
+      >
         Register
       </Button>
     </main>
