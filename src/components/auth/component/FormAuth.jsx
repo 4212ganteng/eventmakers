@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRegister } from "../hooks/useRegister";
+import { useRegister } from "../hooks/useAuth";
 import { useVisiblepassword } from "@/components/customHooks/useVisiblepassword";
 import Link from "next/link";
 import { Button, Input } from "@nextui-org/react";
@@ -10,8 +10,14 @@ import SpinerButton from "./SpinerButton";
 
 const FormAuth = ({ type }) => {
   const { isVisible, toggleVisibility } = useVisiblepassword();
-  const { register, handleChange, HandleAuth, isInvalid, loading } =
-    useRegister();
+  const {
+    register,
+    handleChange,
+    HandleLogin,
+    HandleRegister,
+    isInvalid,
+    loading,
+  } = useRegister();
   return (
     <main className="space-y-3">
       {type == "register" && (
@@ -68,7 +74,7 @@ const FormAuth = ({ type }) => {
           <Button
             isLoading={loading}
             spinner={<SpinerButton />}
-            onClick={() => HandleAuth("/auth/register", "/login")}
+            onClick={HandleRegister}
           >
             Register
           </Button>
@@ -82,7 +88,7 @@ const FormAuth = ({ type }) => {
           <Button
             isLoading={loading}
             spinner={<SpinerButton />}
-            onClick={() => HandleAuth("/auth/login", "/")}
+            onClick={HandleLogin}
           >
             Login
           </Button>

@@ -29,9 +29,9 @@ export const useRegister = () => {
     return validateEmail(register.email) ? false : true;
   }, [register.email]);
 
-  const HandleAuth = async (url, redirect) => {
+  const HandleRegister = async () => {
     setLoading(true);
-    const response = await fetch(API_url + url, {
+    const response = await fetch(`${API_url}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,17 +46,47 @@ export const useRegister = () => {
       setLoading(false);
       toast.success("Register succes, waiting to redirect");
 
-      console.log("response ===>", response);
-
       setTimeout(() => {
-        router.push(redirect);
+        router.push("/login");
       }, 3000);
     } else {
       setLoading(false);
-      console.log("err ===>", result.message);
       toast.error(`Failed register ${result.message}`);
     }
   };
 
-  return { register, handleChange, HandleAuth, isInvalid, loading };
+  const HandleLogin = async () => {
+    setLoading(true);
+    const response = await fetch(`${API_url}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(register),
+    });
+
+    const result = await response.json();
+    console.log("resulttt", result);
+
+    if (!result.error) {
+      setLoading(false);
+      toast.success("Login succes, waiting to redirect");
+
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
+    } else {
+      setLoading(false);
+      toast.error(`Failed register ${result.message}`);
+    }
+  };
+
+  return {
+    register,
+    handleChange,
+    HandleLogin,
+    HandleRegister,
+    isInvalid,
+    loading,
+  };
 };
