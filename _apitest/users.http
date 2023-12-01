@@ -4,7 +4,7 @@ POST https://eventmakers-api.vercel.app/api/auth/register
 
 {
     "name":"fira",
-    "email":"fira@mail.com",
+    "email":"fia@mail.com",
     "password":"password"
 
 }
