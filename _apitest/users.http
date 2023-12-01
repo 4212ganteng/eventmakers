@@ -1,0 +1,22 @@
+### Register User
+
+POST https://eventmakers-api.vercel.app/api/auth/register
+
+{
+    "name":"fira",
+    "email":"fia@mail.com",
+    "password":"password"
+
+}
+
+
+### Login User
+
+POST https://eventmakers-api.vercel.app/api/auth/login
+
+{
+   
+    "email":"fira@mail.com",
+    "password":"password"
+
+}
